@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
     <head>
 
        <title>SeniorERP-assignment</title>
@@ -12,30 +14,22 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     </head>
-    <body class="antialiased">
 
-        <div class="relative flex items-top justify-center min-h-screen sm:items-center sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-jet-dropdown-link href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                this.closest('form').submit();">
-                                {{ __('Logout') }}
-                            </x-jet-dropdown-link>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+    <div class="contained mx-auto">
+        <div class="bg-gray-300 rounded-lg flex items-center justify-end">
+            @include('layouts.login_logout')
         </div>
-    </body>
-</html>
+    </div>
+
+    <div class="contained mx-auto">
+            <div class="text-2xl bg-gray-100 rounded-lg flex items-center justify-center p-5 border border-bg-gray-100 rounded-lg">
+                SeniorERP - assignment
+            </div>
+
+            <div class="flex text-2xl bg-gray-100 rounded-lg flex items-center justify-center p-5 border border-bg-gray-100 rounded-lg">
+                Created by Mihai Munteanu
+            </div>
+
+        </div>
+
+    </div>

@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TasksController;
+use App\Http\Controllers\SupervisionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('welcome');
+Route::middleware(['auth:sanctum', 'verified'])->get('/tasks', function () {
+    return view('/mypage');
 })->name('dashboard');
 
-Route::get('/tasks', [TasksController::class, 'index']);
-Route::post('/tasks', [TasksController::class, 'store']);
+Route::get('/myTasks', [TasksController::class, 'index']);
+Route::get('/createTasks', [TasksController::class, 'create']);
+Route::post('/createTasks', [TasksController::class, 'store']);
+
+Route::get('/supervision', [SupervisionController::class, 'index']);

@@ -17,10 +17,18 @@
 
     <body>
 
-        @include('layouts.navbar')
+        <nav class="contained mx-auto">
+            <div class="bg-gray-300 rounded-lg flex items-center justify-between">
+
+            @include('layouts.navbar')
+
+            @include('layouts.login_logout')
+
+            </div>
+
+        </nav>
 
         {{$slot}}
-
 
     </body>
 

@@ -64,4 +64,28 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class)->latest();
     }
+
+
+    public function myTasks()
+    {
+        $ids = $this->supervises()->pluck('id');
+        $ids->push($this->id);
+
+        return Task::whereIn('user_id', $ids)->latest()->get();
+    }
+
+    // public function receivedTasks()
+    // {
+
+    // }
+
+    public function supervise(User $user)
+    {
+        return $this->supervises()->save($user);
+    }
+
+    public function supervises()
+    {
+        return $this->belongsToMany(User::class, 'supervisions', 'user_id', 'supervising_user_id');
+    }
 }

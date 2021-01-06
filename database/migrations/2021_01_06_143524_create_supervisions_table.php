@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHierarchiesTable extends Migration
+class CreateSupervisionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateHierarchiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('hierarchies', function (Blueprint $table) {
+        Schema::create('supervisions', function (Blueprint $table) {
             $table->primary(['user_id', 'supervising_user_id']);
             $table->foreignId('user_id');
             $table->foreignId('supervising_user_id');
@@ -28,7 +28,6 @@ class CreateHierarchiesTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-
         });
     }
 
@@ -39,6 +38,6 @@ class CreateHierarchiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hierarchies');
+        Schema::dropIfExists('supervisions');
     }
 }
