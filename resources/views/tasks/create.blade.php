@@ -3,33 +3,30 @@
         <div class="text-2xl text-center">Create a Task</div>
 
         <div class="">
-            <form method="POST" action="/createTasks" class="">
+            <form method="POST" action="/create-a-task" class="">
             @csrf
                 <div class="">
                     <label for="title">
                         Title:
                     </label>
-                    <input type="text" class="form-control w-full border border-gray-300 rounded-lg" id="title" name="title"  value="{{ old('title') }}" required>
+                    <input type="text" class="form-control w-full border border-gray-300 rounded-lg" id="title" name="title"  value="{{ old('title')}}" required>
                 </div>
                 <div class="pt-2">
                     <label for="body">
                         Body:
                     </label>
-                    <textarea name="body" id="body" class="form-control w-full border border-gray-300 rounded-lg" rows="8" placeholder="what you would like to write" required>
-                        {{old('body')}}
-                    </textarea>
+                    <textarea name="body" id="body" class="w-full border border-gray-300 rounded-lg" placeholder="please provide more details" rows="8" required>{{old('body')}}</textarea>
                 </div>
                 <div class="pt-2">
                     <label for="allocated_to">
                         Allocated to:
                     </label>
                     <select type="text" class="form-control w-full border border-gray-300 rounded-lg" id="allocated_to" name="allocated_to">
-                        @foreach($users as $user)
-                            <option>{{$user->name}}</option>
-                        @endforeach
+                            @foreach(auth()->user()->subordinate() as $user)
+                                <option value="{{$user->id}}">{{$user->name}}</option>
+                            @endforeach
                     </select>
                 </div>
-
                 <div class="pt-2">
                     <label for="due_date">
                         Due date:
@@ -60,7 +57,6 @@
                     </ul>
                 @endif
             </form>
-
         </div>
     </div>
 

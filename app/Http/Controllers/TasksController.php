@@ -10,17 +10,15 @@ use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
-
     public function index()
     {
-        return view('myTasks', [
-            'tasks' => auth()->user()->myTasks()
+        return view('tasks.index', [
+            'tasks' => auth()->user()->allocations,
         ]);
     }
 
     public function store(Request $request)
     {
-
         $request->validate([
             'title' => 'required',
             'body' => 'required',
@@ -38,15 +36,27 @@ class TasksController extends Controller
             'importance' => request('importance'),
         ]);
 
-        return redirect('/tasks');
+        return redirect('/dashboard');
     }
 
     public function create()
     {
-        $users = User::latest()->get();
+        $currentUser = auth()->user();
 
-        return view('createTasks', [
-            'users' => $users
+        return view('tasks.create', [
+            'currentUser' => $currentUser,
+
         ]);
+    }
+
+    public function destroy(Task $task)
+    {
+        if ($task->user_id != auth()->id()) {
+            abort(403, 'You do not have permision to do this.');
+        }
+
+        $task->delete();
+
+        return redirect('/dashboard');
     }
 }

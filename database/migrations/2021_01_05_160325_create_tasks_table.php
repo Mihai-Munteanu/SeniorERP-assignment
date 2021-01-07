@@ -19,9 +19,10 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('allocated_to');
-            $table->timestamp('due_date');
+            $table->date('due_date');
             $table->string('importance');
             $table->timestamps();
+            $table->boolean('status')->nullable();
         });
     }
 

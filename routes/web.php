@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\SupervisionController;
 
@@ -15,19 +17,25 @@ use App\Http\Controllers\SupervisionController;
 |
 */
 
-Route::get('/', function () {
-    // $user = User::creaet();
-    // auth()->login($user);
 
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/tasks', function () {
-    return view('/mypage');
-})->name('dashboard');
 
-Route::get('/myTasks', [TasksController::class, 'index']);
-Route::get('/createTasks', [TasksController::class, 'create']);
-Route::post('/createTasks', [TasksController::class, 'store']);
+Route::middleware('auth')->group(function () {
+    Route::get('/welcome', [UserController::class, 'index']);
+    Route::get('/dashboard', [TasksController::class, 'index']);
+    Route::delete('/dashboard/{task}', [TasksController::class, 'destroy']);
+    Route::get('/create-a-task', [TasksController::class, 'create']);
+    Route::post('/create-a-task', [TasksController::class, 'store']);
 
-Route::get('/supervision', [SupervisionController::class, 'index']);
+
+
+    Route::get('/choose-the-roles', [RoleController::class, 'index']);
+    Route::patch('/choose-the-roles/{user}', [RoleController::class, 'update']); // nu functioneaza;
+
+
+
+
+});

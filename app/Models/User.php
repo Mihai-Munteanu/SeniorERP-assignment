@@ -60,32 +60,32 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function task()
+    // changed name to tasks
+    public function tasks()
     {
         return $this->hasMany(Task::class)->latest();
     }
 
-
-    public function myTasks()
+    public function allocations()
     {
-        $ids = $this->supervises()->pluck('id');
-        $ids->push($this->id);
-
-        return Task::whereIn('user_id', $ids)->latest()->get();
+        return $this->hasMany(Task::class, 'allocated_to', 'id')->latest();
     }
 
-    // public function receivedTasks()
-    // {
-
-    // }
-
-    public function supervise(User $user)
+    public function subordinate()
     {
-        return $this->supervises()->save($user);
-    }
+        $roles = [
+            'Admin',
+            'Manager',
+            'Senior',
+            'Junior',
+        ];
 
-    public function supervises()
-    {
-        return $this->belongsToMany(User::class, 'supervisions', 'user_id', 'supervising_user_id');
+        $myRole = auth()->user()->role;
+
+        $index = array_search($myRole, $roles);
+
+        $subalterniRoles = collect($roles)->slice($index);
+
+        return User::whereIn('role', $subalterniRoles)->get();
     }
 }
