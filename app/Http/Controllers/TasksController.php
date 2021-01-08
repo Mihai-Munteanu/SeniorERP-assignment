@@ -4,16 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Filters\TaskFilters;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 
 
 class TasksController extends Controller
 {
     public function index()
     {
+        $tasks = auth()->user()->allocations();
+
+        if (request()->get('order_by')) {
+            $tasks = $tasks->orderBy(request()->get('order_by'), request()->get('order_direction')); //dashboard?order_by=due_date&order_direction=asc
+        }
+
         return view('tasks.index', [
-            'tasks' => auth()->user()->allocations,
+            'tasks' => $tasks->get(),
         ]);
     }
 

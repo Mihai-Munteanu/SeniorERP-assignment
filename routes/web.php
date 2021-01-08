@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SupervisionController;
 
 /*
@@ -30,12 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/create-a-task', [TasksController::class, 'create']);
     Route::post('/create-a-task', [TasksController::class, 'store']);
 
-
-
-    Route::get('/choose-the-roles', [RoleController::class, 'index']);
-    Route::patch('/choose-the-roles/{user}', [RoleController::class, 'update']); // nu functioneaza;
-
-
+    Route::get('/employee-list', [EmployeeController::class, 'index']);
+    Route::get('/employee-list/edit/{user}', [EmployeeController::class, 'show']);
+    Route::patch('/employee-list/edit/{user}', [EmployeeController::class, 'update']);
 
 
 });

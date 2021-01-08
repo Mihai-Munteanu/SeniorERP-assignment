@@ -10,7 +10,7 @@
     </div>
 
     <div class=" hidden top-0 right-0 px-6 py-4 sm:block">
-        <a href="/choose-the-roles">Choose the roles</a>
+        <a href="/employee-list">Employee list</a>
     </div>
 
 </div>

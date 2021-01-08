@@ -12,6 +12,10 @@ class Task extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'due_date' => 'date:Y-m-d',
+    ];
+
 
     public function user()
     {

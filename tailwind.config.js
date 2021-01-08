@@ -18,6 +18,9 @@ module.exports = {
     variants: {
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
     },
-
+    extend: {
+        // ...
+       tableLayout: ['hover', 'focus'],
+    },
     plugins: [require('@tailwindcss/ui')],
 };

@@ -60,15 +60,14 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    // changed name to tasks
     public function tasks()
     {
-        return $this->hasMany(Task::class)->latest();
+        return $this->hasMany(Task::class);
     }
 
     public function allocations()
     {
-        return $this->hasMany(Task::class, 'allocated_to', 'id')->latest();
+        return $this->hasMany(Task::class, 'allocated_to', 'id');
     }
 
     public function subordinate()
@@ -84,8 +83,8 @@ class User extends Authenticatable
 
         $index = array_search($myRole, $roles);
 
-        $subalterniRoles = collect($roles)->slice($index);
+        $subordinateRoles = collect($roles)->slice($index);
 
-        return User::whereIn('role', $subalterniRoles)->get();
+        return User::whereIn('role', $subordinateRoles)->get();
     }
 }

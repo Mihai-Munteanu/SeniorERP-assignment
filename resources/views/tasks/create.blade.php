@@ -1,6 +1,6 @@
 <x-template>
     <div class="container mx-auto">
-        <div class="text-2xl text-center">Create a Task</div>
+        <div class="text-2xl text-center p-5">Create a Task</div>
 
         <div class="">
             <form method="POST" action="/create-a-task" class="">
@@ -21,11 +21,17 @@
                     <label for="allocated_to">
                         Allocated to:
                     </label>
+                    <div class="text-red-300 text-sm">
+                        @if(auth()->user()->role == "")
+                        * you will be able to create and alocate tasks after you have a role
+                        @else
+                    </div>
                     <select type="text" class="form-control w-full border border-gray-300 rounded-lg" id="allocated_to" name="allocated_to">
                             @foreach(auth()->user()->subordinate() as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach
                     </select>
+                        @endif
                 </div>
                 <div class="pt-2">
                     <label for="due_date">
@@ -38,7 +44,7 @@
                         Importance:
                     </label>
                     <select type="text" class="form-control w-full border border-gray-300 rounded-lg" id="importance" name="importance"  value="{{ old('importance') }}" required>
-                        <option>low</option>
+                        <option>Low</option>
                         <option>Medium</option>
                         <option>High</option>
                     </select>
@@ -59,5 +65,10 @@
             </form>
         </div>
     </div>
+
+
+    <p class="text-sm">
+        *The role can be chosen by accessing the Employee list
+    </p>
 
 </x-template>
