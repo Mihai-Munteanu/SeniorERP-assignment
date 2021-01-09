@@ -18,4 +18,18 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+ /** @test */
+    public function guest_may_not_see_and_create_tasks()
+    {
+        $this->withExceptionHandling();
+
+        $this->get('/dashboard')
+            ->assertRedirect('/login');
+
+        $this->post('/create-a-task')
+            ->assertRedirect('/login');
+    }
+
+    
 }

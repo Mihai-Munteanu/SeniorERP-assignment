@@ -23,7 +23,7 @@
                     </label>
                     <div class="text-red-300 text-sm">
                         @if(auth()->user()->role == "")
-                        * you will be able to create and alocate tasks after you have a role
+                        * you will be able to create andalocate tasks after you have a role
                         @else
                     </div>
                     <select type="text" class="form-control w-full border border-gray-300 rounded-lg" id="allocated_to" name="allocated_to">
@@ -50,7 +50,7 @@
                     </select>
                 </div>
                 <div class="flex justify-end">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" type="submit">
+                    <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded mt-2" type="submit">
                         Publish
                     </button>
                 </div>

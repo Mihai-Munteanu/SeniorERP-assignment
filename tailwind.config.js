@@ -13,6 +13,11 @@ module.exports = {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
         },
+        colors: {
+            indigo:{
+                light: '#667eea',
+            }
+        }
     },
 
     variants: {
@@ -21,6 +26,7 @@ module.exports = {
     extend: {
         // ...
        tableLayout: ['hover', 'focus'],
+       textDecoration: ['active'],
     },
     plugins: [require('@tailwindcss/ui')],
 };

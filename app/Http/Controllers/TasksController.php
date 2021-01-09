@@ -16,8 +16,17 @@ class TasksController extends Controller
         $tasks = auth()->user()->allocations();
 
         if (request()->get('order_by')) {
-            $tasks = $tasks->orderBy(request()->get('order_by'), request()->get('order_direction')); //dashboard?order_by=due_date&order_direction=asc
+            $tasks = $tasks->orderBy(request()->get('order_by'), request()->get('order_direction')); //it is not applicable as the table implemented from Tailwind has incorporated the sort function. if this should be the case, we would be using the following url dashboard?order_by=due_date&order_direction=asc
         }
+
+        // if (request()->get('limit')) {
+        //     $tasks = $tasks->take(request()->get('limit')); //it is not applicable as the table implemented from Tailwind has incorporated the sort function. if this should be the case, we would be using the following url dashboard?order_by=due_date&order_direction=asc
+        // }
+        // }
+
+        // if (request()->get('page')) {
+        //     $tasks = $tasks->altceva(request()->get('page')); //it is not applicable as the table implemented from Tailwind has incorporated the sort function. if this should be the case, we would be using the following url dashboard?order_by=due_date&order_direction=asc
+        // }
 
         return view('tasks.index', [
             'tasks' => $tasks->get(),

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+// should be named EmployeesController
 class EmployeeController extends Controller
 {
     public function index()
@@ -19,7 +20,6 @@ class EmployeeController extends Controller
     public function show(User $user)
     {
         $users = User::latest()->get();
-        //$user = auth()->user();
 
         return view('employee.show', [
             'users' => $users,

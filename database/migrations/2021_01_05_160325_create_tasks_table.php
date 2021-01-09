@@ -23,6 +23,11 @@ class CreateTasksTable extends Migration
             $table->string('importance');
             $table->timestamps();
             $table->boolean('status')->nullable();
+
+            $table->foreign('user_id')
+            -> references('id')
+            -> on('tasks')
+            ->onDelete('cascade');
         });
     }
 

@@ -10,9 +10,9 @@
             <table class="table-auto border border-gray-300 rounded-lg w-full">
                 <thead class="text-center bg-gray-200 text-xl">
                     <tr>
-                    <th>Employee name</th>
-                    <th>Employee e-mail</th>
-                    <th>Employee role</th>
+                    <th>name</th>
+                    <th>e-mail</th>
+                    <th>role</th>
                     </tr>
                 </thead>
                 <tbody class="text-center">

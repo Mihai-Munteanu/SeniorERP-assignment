@@ -5,7 +5,7 @@
             @method('DELETE')
 
             <button class="" type="submit">
-                Delete
+                <a class="hover:underline">Delete</a>
             </button>
         </form>
     @else
