@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\Task;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends TestCase
 {
@@ -18,18 +20,4 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
-
- /** @test */
-    public function guest_may_not_see_and_create_tasks()
-    {
-        $this->withExceptionHandling();
-
-        $this->get('/dashboard')
-            ->assertRedirect('/login');
-
-        $this->post('/create-a-task')
-            ->assertRedirect('/login');
-    }
-
-    
 }

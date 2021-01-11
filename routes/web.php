@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\TasksCreatedByMe;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\SupervisionController;
 
 /*
@@ -25,15 +26,12 @@ Route::get('/', function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/welcome', [UserController::class, 'index']);
     Route::get('/dashboard', [TasksController::class, 'index']);
     Route::delete('/dashboard/{task}', [TasksController::class, 'destroy']);
-    Route::get('/create-a-task', [TasksController::class, 'create']);
-    Route::post('/create-a-task', [TasksController::class, 'store']);
-
-    Route::get('/employee-list', [EmployeeController::class, 'index']);
-    Route::get('/employee-list/edit/{user}', [EmployeeController::class, 'show']);
-    Route::patch('/employee-list/edit/{user}', [EmployeeController::class, 'update']);
-
-
+    Route::get('/tasks_created_by_me', [TasksController::class, 'createdByMe']);
+    Route::get('/tasks/create', [TasksController::class, 'create']);
+    Route::post('/tasks/create', [TasksController::class, 'store']);
+    Route::get('/employees', [EmployeesController::class, 'index']);
+    Route::get('/employee/{user}', [EmployeesController::class, 'show']);
+    Route::patch('/employee/{user}/edit', [EmployeesController::class, 'update']);
 });

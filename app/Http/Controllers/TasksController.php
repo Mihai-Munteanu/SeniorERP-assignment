@@ -7,37 +7,34 @@ use App\Models\User;
 use App\Filters\TaskFilters;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TasksController extends Controller
 {
-    public function index()
+      public function index()
     {
         $tasks = auth()->user()->allocations();
 
         if (request()->get('order_by')) {
-            $tasks = $tasks->orderBy(request()->get('order_by'), request()->get('order_direction')); //it is not applicable as the table implemented from Tailwind has incorporated the sort function. if this should be the case, we would be using the following url dashboard?order_by=due_date&order_direction=asc
+            $tasks = $tasks->orderBy(request()->get('order_by'), request()->get('order_direction'));
         }
 
-        // if (request()->get('limit')) {
-        //     $tasks = $tasks->take(request()->get('limit')); //it is not applicable as the table implemented from Tailwind has incorporated the sort function. if this should be the case, we would be using the following url dashboard?order_by=due_date&order_direction=asc
-        // }
-        // }
-
-        // if (request()->get('page')) {
-        //     $tasks = $tasks->altceva(request()->get('page')); //it is not applicable as the table implemented from Tailwind has incorporated the sort function. if this should be the case, we would be using the following url dashboard?order_by=due_date&order_direction=asc
-        // }
+        if (request()->get('orderByRaw') == "importanceup") {
+            $tasks = $tasks->orderByRaw("FIELD(importance, 'Low', 'Medium', 'High')");
+        } elseif (request()->get('orderByRaw') == "importancedown") {
+            $tasks = $tasks->orderByRaw("FIELD(importance, 'High', 'Medium', 'Low')");
+        }
 
         return view('tasks.index', [
-            'tasks' => $tasks->get(),
+            'tasks' => $tasks->paginate(8)->withQueryString(),
         ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'body' => 'required',
+            'task' => 'required',
+            'description' => 'required',
             'allocated_to' => 'required',
             'due_date' => 'required',
             'importance' => 'required',
@@ -45,9 +42,9 @@ class TasksController extends Controller
 
         $tasks = Task::create([
             'user_id' => auth()->id(),
-            'title' => request('title'),
-            'body' =>request('body'),
-            'allocated_to' =>request('allocated_to'),
+            'task' => request('task'),
+            'description' => request('description'),
+            'allocated_to' => request('allocated_to'),
             'due_date' => request('due_date'),
             'importance' => request('importance'),
         ]);
@@ -57,12 +54,7 @@ class TasksController extends Controller
 
     public function create()
     {
-        $currentUser = auth()->user();
-
-        return view('tasks.create', [
-            'currentUser' => $currentUser,
-
-        ]);
+        return view('tasks.create');
     }
 
     public function destroy(Task $task)
@@ -73,6 +65,25 @@ class TasksController extends Controller
 
         $task->delete();
 
-        return redirect('/dashboard');
+        return redirect()->back();
+    }
+
+    public function createdByMe()
+    {
+        $tasks = auth()->user()->tasks();
+
+        if (request()->get('order_by')) {
+            $tasks = $tasks->orderBy(request()->get('order_by'), request()->get('order_direction'));
+        }
+
+        if (request()->get('orderByRaw') == "importanceup") {
+            $tasks = $tasks->orderByRaw("FIELD(importance, 'Low', 'Medium', 'High')");
+        } elseif (request()->get('orderByRaw') == "importancedown") {
+            $tasks = $tasks->orderByRaw("FIELD(importance, 'High', 'Medium', 'Low')");
+        }
+
+        return view('tasks.tasks_created_by_me', [
+        'tasks' => $tasks->paginate(8)->withQueryString(),
+        ]);
     }
 }

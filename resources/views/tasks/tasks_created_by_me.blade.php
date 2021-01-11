@@ -1,10 +1,10 @@
 <x-template>
 
     <div class="text-2xl text-center p-5">
-        My tasks
+        Tasks created by me
     </div>
 
-    <div class="container m-auto">
+    <div class="container mx-auto">
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -19,7 +19,7 @@
                                     Description
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Author
+                                    Allocated to
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     <div class="flex content-center">
@@ -28,14 +28,14 @@
                                         </div>
                                         <div>
                                             <div>
-                                                <a href = "dashboard?order_by=due_date&order_direction=asc">
+                                                <a href = "tasks_created_by_me?order_by=due_date&order_direction=asc">
                                                     <svg class="w-4 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                         <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h5a1 1 0 000-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM13 16a1 1 0 102 0v-5.586l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 101.414 1.414L13 10.414V16z" />
                                                 </a>
                                                     </svg>
                                             </div>
                                             <div>
-                                                <a href="dashboard?order_by=due_date&order_direction=desc">
+                                                <a href="tasks_created_by_me?order_by=due_date&order_direction=desc">
                                                     <svg class ="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                         <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z" />
                                                     </svg>
@@ -51,14 +51,14 @@
                                         </div>
                                         <div>
                                             <div>
-                                                <a href = "dashboard?orderByRaw=importanceup">
+                                                <a href = "tasks_created_by_me?orderByRaw=importanceup">
                                                     <svg class="w-4 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                         <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h5a1 1 0 000-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM13 16a1 1 0 102 0v-5.586l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 101.414 1.414L13 10.414V16z" />
                                                     </svg>
                                                 </a>
                                             </div>
                                             <div>
-                                                <a href="dashboard?orderByRaw=importancedown">
+                                                <a href="tasks_created_by_me?orderByRaw=importancedown">
                                                     <svg class ="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                         <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z" />
                                                     </svg>
@@ -86,7 +86,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
-                                                {{$task->user->name}}
+                                                {{$task->responsable ? $task->responsable->name : ''}}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -108,9 +108,12 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="p-6">
-                            {{$tasks->links()}}
+                        <div>
+
+                          {{$tasks->links()}}
+
                         </div>
+
                     </div>
                 </div>
             </div>

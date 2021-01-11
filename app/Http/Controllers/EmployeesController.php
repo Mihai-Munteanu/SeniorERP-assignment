@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
-// should be named EmployeesController
-class EmployeeController extends Controller
+class EmployeesController extends Controller
 {
     public function index()
     {
-        $users = User::latest()->get();
-
-        return view('employee.index', [
-            'users' => $users,
+        return view('employees.index', [
+            'users' => User::paginate(8),
         ]);
     }
 
@@ -21,7 +19,7 @@ class EmployeeController extends Controller
     {
         $users = User::latest()->get();
 
-        return view('employee.show', [
+        return view('employees.show', [
             'users' => $users,
             'user' => $user,
         ]);
@@ -36,6 +34,6 @@ class EmployeeController extends Controller
         $user->role = request('role');
         $user->save();
 
-        return redirect('/employee-list');
+        return redirect('/employees');
     }
 }

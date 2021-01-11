@@ -14,18 +14,18 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     </head>
-
     <body>
-
-        <nav class="contained mx-auto">
-            <div class="bg-gray-300 rounded-lg flex items-center justify-between">
-
-            @include('layouts.navbar')
-
-            @include('layouts.login_logout')
-
+        <nav class="w-full h-16 bg-gray-800">
+            <div class="container mx-auto">
+                <div class="flex items-center justify-between">
+                    <div>
+                        @include('layouts.navbar')
+                    </div>
+                    <div>
+                        @include('layouts.login_logout')
+                    </div>
+                </div>
             </div>
-
         </nav>
 
         {{$slot}}

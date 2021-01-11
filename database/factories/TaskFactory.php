@@ -23,12 +23,12 @@ class TaskFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory()->make()->save(),
-            'title' => $this->faker->sentence,
-            'body' => $this->faker->sentence,
-            'allocated_to' => User::factory()->make()->save(),
+            'user_id' => User::factory()->create(),
+            'task' => $this->faker->sentence,
+            'description' => $this->faker->sentence,
+            'allocated_to' => User::factory()->create(),
             'due_date' => $this->faker->date,
-            'importance' => 'low',
+            'importance' => 'Low',
         ];
     }
 }

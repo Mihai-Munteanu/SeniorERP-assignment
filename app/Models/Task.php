@@ -18,10 +18,10 @@ class Task extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function assignedTo()
+    public function responsable()
     {
         return $this->belongsTo(User::class, 'allocated_to');
     }
